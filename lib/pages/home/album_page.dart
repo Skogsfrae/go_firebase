@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_firebase/services/dynamic_link_service.dart';
+import 'package:go_router/go_router.dart';
 
 class AlbumPage extends StatelessWidget {
   const AlbumPage({super.key});
@@ -13,7 +16,15 @@ class AlbumPage extends StatelessWidget {
             flexibleSpace: _AlbumPageTitle(),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final dynamiclink = await DynamicLinkService.instance
+                      .getDynamicLinkFromGoRouterState(
+                    GoRouterState.of(context),
+                  );
+                  await Clipboard.setData(
+                    ClipboardData(text: dynamiclink),
+                  );
+                },
                 icon: Icon(Icons.adaptive.share),
               )
             ],
