@@ -18,6 +18,10 @@ GoRoute get $homeRouteData => GoRouteData.$route(
           path: 'profile',
           factory: $ProfilePageDataExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'album/:id',
+          factory: $AlbumPageDataExtension._fromState,
+        ),
       ],
     );
 
@@ -28,12 +32,12 @@ extension $HomeRouteDataExtension on HomeRouteData {
         '/home',
       );
 
-  void go(BuildContext context) => context.go(location, extra: this);
+  void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location, extra: this);
+  void push(BuildContext context) => context.push(location);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location, extra: this);
+      context.pushReplacement(location);
 }
 
 extension $ProfilePageDataExtension on ProfilePageData {
@@ -43,10 +47,27 @@ extension $ProfilePageDataExtension on ProfilePageData {
         '/home/profile',
       );
 
-  void go(BuildContext context) => context.go(location, extra: this);
+  void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location, extra: this);
+  void push(BuildContext context) => context.push(location);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location, extra: this);
+      context.pushReplacement(location);
+}
+
+extension $AlbumPageDataExtension on AlbumPageData {
+  static AlbumPageData _fromState(GoRouterState state) => AlbumPageData(
+        state.params['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/home/album/${Uri.encodeComponent(id)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  void push(BuildContext context) => context.push(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
 }

@@ -18,7 +18,9 @@ class _GoFirebaseAppState extends State<GoFirebaseApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Go Firebase',
-      theme: ThemeData.dark(useMaterial3: true),
+      themeMode: ThemeMode.dark,
+      theme: ThemeData(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
       routerConfig: router,
     );
   }

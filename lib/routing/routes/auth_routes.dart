@@ -14,6 +14,6 @@ class AuthPageData extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return AuthPage();
+    return const AuthPage();
   }
 }
