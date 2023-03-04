@@ -8,9 +8,18 @@
             "name": "go_firebase macOS",
             "request": "launch",
             "type": "dart",
-            // "program": "lib/main.dart",
+            "program": "lib/main.dart",
             "args": [
                 "--dart-define-from-file=firebase_config/macOS.json"
+            ]
+        },
+        {
+            "name": "go_firebase iOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define-from-file=firebase_config/iOS.json"
             ]
         },
         {
