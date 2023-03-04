@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_firebase/routing/routes.dart';
 import 'package:go_firebase/services/auth/auth_service.dart';
@@ -42,6 +43,10 @@ class GoFirebaseRouter {
         return null;
       },
     );
+
+    router.addListener(() {
+      FirebaseCrashlytics.instance.log('Route: ${router.location}');
+    });
 
     return router;
   }
