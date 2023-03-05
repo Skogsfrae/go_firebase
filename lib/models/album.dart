@@ -1,18 +1,18 @@
 class Album {
 
   final String id;
-  final String? name;
-  final String? author;
-  final int? year;
-  final String? albumArt;
+  final String name;
+  final String author;
+  final int year;
+  final String albumArt;
   final List<Song> songs;
 
   Album({
     required this.id,
-    this.author,
-    this.year,
-    this.albumArt,
-    this.name,
+    required this.author,
+    required this.year,
+    required this.albumArt,
+    required this.name,
     this.songs = const [],
   });
 
@@ -21,15 +21,17 @@ class Album {
 class Song {
 
   final String id;
-  final String? title;
-  final String? duration;
-  final int? position;
+  final String title;
+  final Duration duration;
+  final String author;
+  final int position;
   
   Song({
     required this.id,
-    this.title,
-    this.duration,
-    this.position,
+    required this.title,
+    required this.author,
+    required this.duration,
+    required this.position,
   });
 
 }

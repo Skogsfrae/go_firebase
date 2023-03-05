@@ -6,7 +6,6 @@ import 'package:go_firebase/services/dynamic_link_service.dart';
 import 'package:go_router/go_router.dart';
 
 class AlbumPage extends StatelessWidget {
-
   final String albumId;
 
   Album? get album => AlbumRepository.fetchAlbumById(albumId: albumId);
@@ -16,7 +15,7 @@ class AlbumPage extends StatelessWidget {
   const AlbumPage({
     required this.albumId,
     super.key,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +46,8 @@ class AlbumPage extends StatelessWidget {
               primary: false,
               shrinkWrap: true,
               itemCount: songs.length,
-              itemBuilder: (context, index) { 
-                return _SongRow(
+              itemBuilder: (context, index) {
+                return _SongRow.fromSong(
                   song: songs[index],
                 );
               },
@@ -61,50 +60,62 @@ class AlbumPage extends StatelessWidget {
 }
 
 class _SongRow extends StatelessWidget {
-  final Song song;
+  final String id;
+  final int position;
+  final Duration duration;
+  final String title;
+  final String author;
+
+  factory _SongRow.fromSong({
+    Key? key,
+    required Song song,
+  }) =>
+      _SongRow(
+        key: key,
+        id: song.id,
+        position: song.position,
+        duration: song.duration,
+        title: song.title,
+        author: song.author,
+      );
 
   const _SongRow({
     super.key,
-    required this.song
+    required this.id,
+    required this.position,
+    required this.duration,
+    required this.title,
+    required this.author,
   });
 
   @override
-  Widget build(BuildContext context) => Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: Row(
-            children: [
-              Text(song.position.toString()),
-              const SizedBox(
-                width: 16,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (song.title != null)
-                    Text(song.title!),
-                  //if (song.aut != null)  
-                  //Text(song.autho!r, style: Theme.of(context).textTheme.bodySmall),
-                ],
-              ),
-              const Spacer(),
-              if (song.duration != null)
-                Text(
-                  song.duration!,
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-            ],
-          ),
+  Widget build(BuildContext context) => ListTile(
+        dense: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(position.toString()),
+          ],
+        ),
+        title: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Text(author, style: Theme.of(context).textTheme.bodySmall),
+        trailing: Text(
+          duration.toString().substring(2, 7),
+          style: Theme.of(context).textTheme.labelSmall,
         ),
       );
 }
 
 class _AlbumPageTitle extends StatelessWidget {
-
   final Album album;
 
-  _AlbumPageTitle(this.album);
+  const _AlbumPageTitle(this.album);
 
   @override
   Widget build(BuildContext context) => FlexibleSpaceBar(
@@ -112,13 +123,11 @@ class _AlbumPageTitle extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (album.name != null)
-            Text(album.name!),
-            if (album.author != null)
-              Text(
-                album.author!,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
+            Text(album.name),
+            Text(
+              album.author,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
           ],
         ),
         centerTitle: false,
@@ -139,7 +148,7 @@ class _AlbumPageTitle extends StatelessWidget {
           ),
           child: Image(
             image: NetworkImage(
-              album.albumArt ?? "",
+              album.albumArt,
             ),
             fit: BoxFit.cover,
           ),

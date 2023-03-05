@@ -23,6 +23,7 @@ class GoFirebaseRouter {
       refreshListenable: Listenable.merge([
         AuthService.instance,
       ]),
+      debugLogDiagnostics: true,
       routes: appRoutes,
       redirect: (BuildContext context, GoRouterState state) {
         final authService = AuthService.instance;

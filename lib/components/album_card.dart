@@ -3,12 +3,28 @@ import 'package:go_firebase/models/album.dart';
 import 'package:go_firebase/routing/routes.dart';
 
 class AlbumCard extends StatelessWidget {
-  final Album album;
+  final String id;
+  final String albumArt;
+  final String name;
+  final String author;
+  final int year;
 
   const AlbumCard({
     super.key,
-    required this.album,
+    required this.id,
+    required this.albumArt,
+    required this.name,
+    required this.author,
+    required this.year,
   });
+
+  factory AlbumCard.fromAlbum(Album album) => AlbumCard(
+        id: album.id,
+        name: album.name,
+        albumArt: album.albumArt,
+        author: album.author,
+        year: album.year,
+      );
 
   @override
   Widget build(BuildContext context) => Card(
@@ -17,7 +33,7 @@ class AlbumCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Material(
             child: InkWell(
-              onTap: () => AlbumPageData(album.id).go(context),
+              onTap: () => AlbumPageData(id).go(context),
               child: Ink(
                 color: Theme.of(context).colorScheme.surfaceVariant,
                 child: Padding(
@@ -31,29 +47,29 @@ class AlbumCard extends StatelessWidget {
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            image: album.albumArt != null
-                                ? DecorationImage(
-                                    image: NetworkImage(album.albumArt!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
+                            image: DecorationImage(
+                              image: NetworkImage(albumArt),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
-                      if (album.name != null)
-                        Text(
-                          album.name!,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
+                      Text(
+                        name,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                       const SizedBox(
                         height: 4,
                       ),
                       Row(
                         children: [
-                          Text('${album.author} - ${album.year}', style: Theme.of(context).textTheme.labelSmall,)
+                          Text(
+                            '$author - $year',
+                            style: Theme.of(context).textTheme.labelSmall,
+                          )
                         ],
                       )
                     ],

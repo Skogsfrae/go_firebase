@@ -16,7 +16,8 @@ class HomePage extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text('Welcome ${FirebaseAuth.instance.currentUser!.displayName}'),
+              title: Text(
+                  'Welcome ${FirebaseAuth.instance.currentUser!.displayName}'),
               centerTitle: false,
               actions: [
                 GestureDetector(
@@ -32,12 +33,56 @@ class HomePage extends StatelessWidget {
                 height: 16,
               ),
             ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Most listened albums ever',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 8,
+              ),
+            ),
             SliverGrid.count(
               childAspectRatio: 3 / 4,
               crossAxisCount: 2,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
-              children: AlbumRepository.fetchAlbumList().map((album) => AlbumCard(album: album,)).toList(),
+              children: AlbumRepository.mostListenedAlbums()
+                  .map(AlbumCard.fromAlbum)
+                  .toList(),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Gorillaz Albums',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 8,
+              ),
+            ),
+            SliverGrid.count(
+              childAspectRatio: 3 / 4,
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              children: AlbumRepository.gorillazAlbums()
+                  .map(AlbumCard.fromAlbum)
+                  .toList(),
             ),
           ],
         ),
