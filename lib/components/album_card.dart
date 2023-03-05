@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_firebase/models/album.dart';
 import 'package:go_firebase/routing/routes.dart';
 
 class AlbumCard extends StatelessWidget {
-  final String id;
-  final String? albumArt;
-  final String name;
-  final String author;
-  final int year;
+  final Album album;
 
   const AlbumCard({
     super.key,
-    required this.id,
-    this.albumArt,
-    required this.name,
-    required this.author,
-    required this.year,
+    required this.album,
   });
 
   @override
@@ -24,7 +17,7 @@ class AlbumCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Material(
             child: InkWell(
-              onTap: () => AlbumPageData(id).go(context),
+              onTap: () => AlbumPageData(album.id).go(context),
               child: Ink(
                 color: Theme.of(context).colorScheme.surfaceVariant,
                 child: Padding(
@@ -38,9 +31,9 @@ class AlbumCard extends StatelessWidget {
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            image: albumArt != null
+                            image: album.albumArt != null
                                 ? DecorationImage(
-                                    image: NetworkImage(albumArt!),
+                                    image: NetworkImage(album.albumArt!),
                                     fit: BoxFit.cover,
                                   )
                                 : null,
@@ -50,16 +43,17 @@ class AlbumCard extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
+                      if (album.name != null)
+                        Text(
+                          album.name!,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
                       const SizedBox(
                         height: 4,
                       ),
                       Row(
                         children: [
-                          Text('$author - $year', style: Theme.of(context).textTheme.labelSmall,)
+                          Text('${album.author} - ${album.year}', style: Theme.of(context).textTheme.labelSmall,)
                         ],
                       )
                     ],

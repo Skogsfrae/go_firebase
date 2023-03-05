@@ -38,6 +38,6 @@ class AlbumPageData extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const AlbumPage();
+    return AlbumPage(albumId: id,);
   }
 }
