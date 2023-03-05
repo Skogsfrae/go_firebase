@@ -9,9 +9,9 @@ class DynamicLinkService {
 
   DynamicLinkService._();
 
-  Future<String> getDynamicLinkFromGoRouterState(GoRouterState state) async {
+  Future<String> getDynamicLinkFromLocation(String location) async {
     final dynamicLinkParams = DynamicLinkParameters(
-      link: Uri.parse(state.location).replace(
+      link: Uri.parse(location).replace(
         scheme: 'https',
         host: 'gofirebase.page.link',
       ),

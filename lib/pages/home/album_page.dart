@@ -29,8 +29,8 @@ class AlbumPage extends StatelessWidget {
               IconButton(
                 onPressed: () async {
                   final dynamiclink = await DynamicLinkService.instance
-                      .getDynamicLinkFromGoRouterState(
-                    GoRouterState.of(context),
+                      .getDynamicLinkFromLocation(
+                    GoRouterState.of(context).location,
                   );
                   await Clipboard.setData(
                     ClipboardData(text: dynamiclink),

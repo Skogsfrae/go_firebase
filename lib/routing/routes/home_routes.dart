@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_firebase/pages/auth/editor_page.dart';
 import 'package:go_firebase/pages/auth/profile_page.dart';
 import 'package:go_firebase/pages/home/album_page.dart';
 import 'package:go_firebase/pages/home/home_page.dart';
@@ -11,6 +12,11 @@ part 'home_routes.g.dart';
   routes: [
     TypedGoRoute<ProfilePageData>(
       path: 'profile',
+      routes: [
+        TypedGoRoute<EditorPageData>(
+          path: 'editor-page',
+        ),
+      ],
     ),
     TypedGoRoute<AlbumPageData>(
       path: 'album/:id',
@@ -38,6 +44,17 @@ class AlbumPageData extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return AlbumPage(albumId: id,);
+    return AlbumPage(
+      albumId: id,
+    );
+  }
+}
+
+class EditorPageData extends GoRouteData {
+  EditorPageData();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const EditorPage();
   }
 }

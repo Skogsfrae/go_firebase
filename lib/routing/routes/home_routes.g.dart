@@ -17,6 +17,12 @@ GoRoute get $homeRouteData => GoRouteData.$route(
         GoRouteData.$route(
           path: 'profile',
           factory: $ProfilePageDataExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'editor-page',
+              factory: $EditorPageDataExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'album/:id',
@@ -45,6 +51,21 @@ extension $ProfilePageDataExtension on ProfilePageData {
 
   String get location => GoRouteData.$location(
         '/home/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  void push(BuildContext context) => context.push(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+}
+
+extension $EditorPageDataExtension on EditorPageData {
+  static EditorPageData _fromState(GoRouterState state) => EditorPageData();
+
+  String get location => GoRouteData.$location(
+        '/home/profile/editor-page',
       );
 
   void go(BuildContext context) => context.go(location);
