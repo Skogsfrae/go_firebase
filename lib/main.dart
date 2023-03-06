@@ -10,14 +10,21 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: 'GoFirebase',
     options: const FirebaseOptions(
       apiKey: String.fromEnvironment('FIREBASE_API_KEY'),
       appId: String.fromEnvironment('FIREBASE_APP_ID'),
       messagingSenderId: String.fromEnvironment('FIREBASE_MESSAGING_SENDER_ID'),
       projectId: String.fromEnvironment('FIREBASE_PROJECT_ID'),
-      authDomain: String.fromEnvironment('FIREBASE_AUTH_DOMAIN'),
-      storageBucket: String.fromEnvironment('FIREBASE_STORAGE_BUCKET'),
-      measurementId: String.fromEnvironment('FIREBASE_MEASUREMENT_ID'),
+      authDomain: bool.hasEnvironment('FIREBASE_AUTH_DOMAIN')
+          ? String.fromEnvironment('FIREBASE_AUTH_DOMAIN')
+          : null,
+      storageBucket: bool.hasEnvironment('FIREBASE_STORAGE_BUCKET')
+          ? String.fromEnvironment('FIREBASE_STORAGE_BUCKET')
+          : null,
+      measurementId: bool.hasEnvironment('FIREBASE_MEASUREMENT_ID')
+          ? String.fromEnvironment('FIREBASE_MEASUREMENT_ID')
+          : null,
     ),
   );
 

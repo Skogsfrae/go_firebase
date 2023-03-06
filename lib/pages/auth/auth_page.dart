@@ -19,16 +19,23 @@ class AuthPage extends StatelessWidget {
         ),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              children: [
-                const Spacer(),
-                LoginView(
-                  action: AuthAction.signIn,
-                  providers: AuthService.authProviders,
-                ),
-              ],
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                    ),
+                    child: LoginView(
+                      action: AuthAction.signIn,
+                      providers: AuthService.authProviders,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
