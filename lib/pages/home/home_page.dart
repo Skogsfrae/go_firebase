@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  'Bugged Albums',
+                  'Other Albums',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

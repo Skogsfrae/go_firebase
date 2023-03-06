@@ -18,7 +18,7 @@ final List<Album> _croAlbums = [
     name: 'Raop',
     author: 'Cro',
     year: 2012,
-    albumArt: 'https://i.imgur.com/ufiW8Pq.jpg',
+    albumArt: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Cro_Raop_Cover_Standard_Version.jpeg',
     songs: [
       Song(
         id: 'CR-RA-01-01',
