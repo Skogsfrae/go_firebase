@@ -13,11 +13,11 @@ class GoFirebaseRouter {
 
   GoFirebaseRouter._();
 
-  static late GoRouter router;
+  late final GoRouter router;
 
   /// Initialize [router] with a pretty configured [GoRouter] instance.
   /// If [router] was already initialized immediatly returns current instance.
-  static GoRouter initAppRouter(BuildContext context) {
+  GoRouter initAppRouter(BuildContext context) {
     router = GoRouter(
       initialLocation: '/home',
       refreshListenable: Listenable.merge([

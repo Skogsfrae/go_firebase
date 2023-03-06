@@ -11,7 +11,7 @@ class GoFirebaseApp extends StatefulWidget {
 }
 
 class _GoFirebaseAppState extends State<GoFirebaseApp> {
-  late final router = GoFirebaseRouter.initAppRouter(context);
+  late final router = GoFirebaseRouter.instance.initAppRouter(context);
 
   // This widget is the root of your application.
   @override
