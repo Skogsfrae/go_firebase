@@ -21,6 +21,7 @@ class AlbumPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        primary: true,
         slivers: [
           SliverAppBar.large(
             stretch: true,
@@ -40,17 +41,13 @@ class AlbumPage extends StatelessWidget {
               )
             ],
           ),
-          SliverFillRemaining(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              primary: false,
-              shrinkWrap: true,
-              itemCount: songs.length,
-              itemBuilder: (context, index) {
-                return _SongRow.fromSong(
-                  song: songs[index],
-                );
-              },
+          SliverSafeArea(
+            top: false,
+            minimum: const EdgeInsets.all(16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                songs.map(_SongRow.fromSong).toList(),
+              ),
             ),
           ),
         ],
@@ -66,12 +63,8 @@ class _SongRow extends StatelessWidget {
   final String title;
   final String author;
 
-  factory _SongRow.fromSong({
-    Key? key,
-    required Song song,
-  }) =>
-      _SongRow(
-        key: key,
+  factory _SongRow.fromSong(Song song) => _SongRow(
+        key: Key(song.id),
         id: song.id,
         position: song.position,
         duration: song.duration,
