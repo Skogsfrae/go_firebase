@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_firebase/go_firebase_app.dart';
+import 'package:go_firebase/services/dynamic_link_service.dart';
 import 'package:go_firebase/services/remote_config_service.dart';
 
 void main() async {
@@ -35,6 +36,7 @@ void main() async {
   };
 
   RemoteConfigService.instance;
+  await DynamicLinkService.instance.initialized;
 
   runApp(const GoFirebaseApp());
 }

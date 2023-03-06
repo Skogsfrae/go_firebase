@@ -1,7 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_firebase/routing/router.dart';
 import 'package:go_firebase/services/dynamic_link_service.dart';
 import 'package:go_router/go_router.dart';
 

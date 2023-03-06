@@ -2,6 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_firebase/routing/routes.dart';
 import 'package:go_firebase/services/auth/auth_service.dart';
+import 'package:go_firebase/services/dynamic_link_service.dart';
 import 'package:go_router/go_router.dart';
 
 // The reason for this is to create a kind of singleton pattern to avoid a new
@@ -18,8 +19,10 @@ class GoFirebaseRouter {
   /// Initialize [router] with a pretty configured [GoRouter] instance.
   /// If [router] was already initialized immediatly returns current instance.
   GoRouter initAppRouter(BuildContext context) {
+    final initialRoute = DynamicLinkService.instance.initialRoute;
+
     router = GoRouter(
-      initialLocation: '/home',
+      initialLocation: initialRoute?.toString() ?? '/home',
       refreshListenable: Listenable.merge([
         AuthService.instance,
       ]),
