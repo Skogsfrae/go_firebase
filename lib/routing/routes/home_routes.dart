@@ -3,6 +3,7 @@ import 'package:go_firebase/pages/auth/editor_page.dart';
 import 'package:go_firebase/pages/auth/profile_page.dart';
 import 'package:go_firebase/pages/home/album_page.dart';
 import 'package:go_firebase/pages/home/home_page.dart';
+import 'package:go_firebase/services/remote_config_service.dart';
 import 'package:go_router/go_router.dart';
 
 part 'home_routes.g.dart';
@@ -52,6 +53,13 @@ class AlbumPageData extends GoRouteData {
 
 class EditorPageData extends GoRouteData {
   EditorPageData();
+
+  @override
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
+    if (RemoteConfigService.instance.hasEditorSuperPowers) return null;
+
+    return HomeRouteData().location;
+  }
 
   @override
   Widget build(BuildContext context, GoRouterState state) {

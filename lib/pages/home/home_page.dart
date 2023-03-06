@@ -84,6 +84,18 @@ class HomePage extends StatelessWidget {
                   .map(AlbumCard.fromAlbum)
                   .toList(),
             ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom,
+                ),
+              ),
+            )
           ],
         ),
       ),
