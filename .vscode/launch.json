@@ -23,6 +23,15 @@
             ]
         },
         {
+            "name": "go_firebase Android",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define-from-file=firebase_config/android.json"
+            ]
+        },
+        {
             "name": "go_firebase (profile mode)",
             "request": "launch",
             "type": "dart",
