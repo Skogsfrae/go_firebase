@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_firebase/models/album.dart';
 import 'package:go_firebase/routing/routes.dart';
@@ -48,7 +49,7 @@ class AlbumCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             image: DecorationImage(
-                              image: NetworkImage(albumArt),
+                              image: CachedNetworkImageProvider(albumArt),
                               fit: BoxFit.cover,
                             ),
                           ),

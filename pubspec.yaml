@@ -26,6 +26,7 @@ dependencies:
   logging: ^1.1.1
   palette_generator: ^0.3.3+2
   package_info_plus: ^3.0.3
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

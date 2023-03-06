@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_firebase/models/album.dart';
@@ -28,7 +29,7 @@ class _AlbumPageState extends State<AlbumPage> {
   void initState() {
     super.initState();
     PaletteGenerator.fromImageProvider(
-      NetworkImage(
+      CachedNetworkImageProvider(
         album!.albumArt,
       ),
     ).then((value) {
@@ -41,7 +42,7 @@ class _AlbumPageState extends State<AlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: AnimatedContainer(
         decoration: BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.bottomRight,
@@ -52,6 +53,7 @@ class _AlbumPageState extends State<AlbumPage> {
             radius: 2,
           ),
         ),
+        duration: const Duration(milliseconds: 200),
         child: CustomScrollView(
           primary: true,
           slivers: [
@@ -181,7 +183,7 @@ class _AlbumPageTitle extends StatelessWidget {
             ),
           ),
           child: Image(
-            image: NetworkImage(
+            image: CachedNetworkImageProvider(
               album.albumArt,
             ),
             fit: BoxFit.cover,
