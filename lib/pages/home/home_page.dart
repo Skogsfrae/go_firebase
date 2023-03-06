@@ -91,11 +91,39 @@ class HomePage extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Bugged Albums',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 8,
+              ),
+            ),
+            SliverGrid.count(
+              childAspectRatio: 3 / 4,
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              children: AlbumRepository.croAlbums()
+                  .map(AlbumCard.fromAlbum)
+                  .toList(),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

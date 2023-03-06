@@ -3,6 +3,8 @@ import 'package:go_firebase/pages/auth/editor_page.dart';
 import 'package:go_firebase/pages/auth/profile_page.dart';
 import 'package:go_firebase/pages/home/album_page.dart';
 import 'package:go_firebase/pages/home/home_page.dart';
+import 'package:go_firebase/pages/home/not_found_page.dart';
+import 'package:go_firebase/repo/data_repository.dart';
 import 'package:go_firebase/services/remote_config_service.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,6 +23,9 @@ part 'home_routes.g.dart';
     ),
     TypedGoRoute<AlbumPageData>(
       path: 'album/:id',
+    ),
+    TypedGoRoute<NotFoundPageData>(
+      path: 'not-found/:entity',
     ),
   ],
 )
@@ -44,6 +49,15 @@ class AlbumPageData extends GoRouteData {
   AlbumPageData(this.id);
 
   @override
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
+    final album = AlbumRepository.fetchAlbumById(albumId: id);
+
+    if (album != null) return null;
+
+    return NotFoundPageData('album').location;
+  }
+
+  @override
   Widget build(BuildContext context, GoRouterState state) {
     return AlbumPage(
       albumId: id,
@@ -64,5 +78,17 @@ class EditorPageData extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const EditorPage();
+  }
+}
+
+class NotFoundPageData extends GoRouteData {
+  final String entity;
+  NotFoundPageData(this.entity);
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return NotFountPage(
+      entity: entity,
+    );
   }
 }

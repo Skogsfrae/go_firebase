@@ -25,7 +25,7 @@ class AlbumPage extends StatelessWidget {
         slivers: [
           SliverAppBar.large(
             stretch: true,
-            flexibleSpace: album != null ? _AlbumPageTitle(album!) : null,
+            flexibleSpace: _AlbumPageTitle(album!),
             actions: [
               IconButton(
                 onPressed: () async {
@@ -38,7 +38,7 @@ class AlbumPage extends StatelessWidget {
                   );
                 },
                 icon: Icon(Icons.adaptive.share),
-              )
+              ),
             ],
           ),
           SliverSafeArea(

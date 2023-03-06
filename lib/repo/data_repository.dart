@@ -9,7 +9,111 @@ class AlbumRepository {
 
   static List<Album> mostListenedAlbums() => _albumList;
   static List<Album> gorillazAlbums() => _gorillazAlbums;
+  static List<Album> croAlbums() => _croAlbums;
 }
+
+final List<Album> _croAlbums = [
+  Album(
+    id: 'CR-RA-01',
+    name: 'Raop',
+    author: 'Cro',
+    year: 2012,
+    albumArt: 'https://i.imgur.com/ufiW8Pq.jpg',
+    songs: [
+      Song(
+        id: 'CR-RA-01-01',
+        title: 'Intro',
+        author: 'Cro',
+        duration: const Duration(minutes: 1, seconds: 16),
+        position: 1,
+      ),
+      Song(
+        id: 'CR-RA-01-02',
+        title: 'Easy',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 51),
+        position: 2,
+      ),
+      Song(
+        id: 'CR-RA-01-03',
+        title: 'Wir waren hier',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 26),
+        position: 3,
+      ),
+      Song(
+        id: 'CR-RA-01-04',
+        title: 'Du',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 23),
+        position: 4,
+      ),
+      Song(
+        id: 'CR-RA-01-05',
+        title: 'King of Raop',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 25),
+        position: 5,
+      ),
+      Song(
+        id: 'CR-RA-01-06',
+        title: 'Meine Zeit',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 24),
+        position: 6,
+      ),
+      Song(
+        id: 'CR-RA-01-07',
+        title: 'Begleitmusik',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 38),
+        position: 7,
+      ),
+      Song(
+        id: 'CR-RA-01-08',
+        title: 'Konfetti',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 9),
+        position: 8,
+      ),
+      Song(
+        id: 'CR-RA-01-09',
+        title: 'Genauso',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 37),
+        position: 9,
+      ),
+      Song(
+        id: 'CR-RA-01-10',
+        title: 'Kein Benz',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 25),
+        position: 10,
+      ),
+      Song(
+        id: 'CR-RA-01-11',
+        title: 'Höhenangst',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 20),
+        position: 11,
+      ),
+      Song(
+        id: 'CR-RA-01-12',
+        title: 'Nie mehr',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 15),
+        position: 12,
+      ),
+      Song(
+        id: 'CR-RA-01-13',
+        title: 'Diese Wiege',
+        author: 'Cro',
+        duration: const Duration(minutes: 3, seconds: 35),
+        position: 13,
+      ),
+    ],
+  ),
+];
 
 final List<Album> _gorillazAlbums = [
   Album(

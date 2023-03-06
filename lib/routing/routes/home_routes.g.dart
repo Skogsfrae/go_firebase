@@ -28,6 +28,10 @@ GoRoute get $homeRouteData => GoRouteData.$route(
           path: 'album/:id',
           factory: $AlbumPageDataExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'not-found/:entity',
+          factory: $NotFoundPageDataExtension._fromState,
+        ),
       ],
     );
 
@@ -83,6 +87,23 @@ extension $AlbumPageDataExtension on AlbumPageData {
 
   String get location => GoRouteData.$location(
         '/home/album/${Uri.encodeComponent(id)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  void push(BuildContext context) => context.push(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+}
+
+extension $NotFoundPageDataExtension on NotFoundPageData {
+  static NotFoundPageData _fromState(GoRouterState state) => NotFoundPageData(
+        state.params['entity']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/home/not-found/${Uri.encodeComponent(entity)}',
       );
 
   void go(BuildContext context) => context.go(location);
