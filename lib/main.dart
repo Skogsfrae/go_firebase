@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    name: 'GoFirebase',
+    name: "GoFirebase",
     options: const FirebaseOptions(
       apiKey: String.fromEnvironment('FIREBASE_API_KEY'),
       appId: String.fromEnvironment('FIREBASE_APP_ID'),
@@ -27,7 +26,7 @@ void main() async {
           ? String.fromEnvironment('FIREBASE_MEASUREMENT_ID')
           : null,
     ),
-  );
+  ); 
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   PlatformDispatcher.instance.onError = (error, stack) {

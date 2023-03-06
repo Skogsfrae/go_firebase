@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:go_firebase/routing/router.dart';
 import 'package:package_info_plus/package_info_plus.dart';

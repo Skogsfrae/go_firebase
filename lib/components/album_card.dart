@@ -39,7 +39,7 @@ class AlbumCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AspectRatio(
@@ -60,15 +60,20 @@ class AlbumCard extends StatelessWidget {
                       Text(
                         name,
                         style: Theme.of(context).textTheme.titleSmall,
+                        maxLines: 2,
                       ),
                       const SizedBox(
                         height: 4,
                       ),
                       Row(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            '$author - $year',
-                            style: Theme.of(context).textTheme.labelSmall,
+                          Expanded(
+                            child: Text(
+                              '$author - $year',
+                              style: Theme.of(context).textTheme.labelSmall,
+                              maxLines: 2,
+                            )
                           )
                         ],
                       )
