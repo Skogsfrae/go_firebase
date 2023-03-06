@@ -4,13 +4,10 @@ import 'package:go_firebase/models/album.dart';
 import 'package:go_firebase/repo/data_repository.dart';
 import 'package:go_firebase/services/dynamic_link_service.dart';
 import 'package:go_router/go_router.dart';
+import 'package:palette_generator/palette_generator.dart';
 
-class AlbumPage extends StatelessWidget {
+class AlbumPage extends StatefulWidget {
   final String albumId;
-
-  Album? get album => AlbumRepository.fetchAlbumById(albumId: albumId);
-
-  List<Song> get songs => album?.songs ?? const [];
 
   const AlbumPage({
     required this.albumId,
@@ -18,39 +15,81 @@ class AlbumPage extends StatelessWidget {
   });
 
   @override
+  State<AlbumPage> createState() => _AlbumPageState();
+}
+
+class _AlbumPageState extends State<AlbumPage> {
+  Album? get album => AlbumRepository.fetchAlbumById(albumId: widget.albumId);
+
+  List<Song> get songs => album?.songs ?? const [];
+  PaletteGenerator? paletteGenerator;
+
+  @override
+  void initState() {
+    super.initState();
+    PaletteGenerator.fromImageProvider(
+      NetworkImage(
+        album!.albumArt,
+      ),
+    ).then((value) {
+      setState(() {
+        paletteGenerator = value;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        primary: true,
-        slivers: [
-          SliverAppBar.large(
-            stretch: true,
-            flexibleSpace: _AlbumPageTitle(album!),
-            actions: [
-              IconButton(
-                onPressed: () async {
-                  final dynamiclink = await DynamicLinkService.instance
-                      .getDynamicLinkFromLocation(
-                    GoRouterState.of(context).location,
-                  );
-                  await Clipboard.setData(
-                    ClipboardData(text: dynamiclink),
-                  );
-                },
-                icon: Icon(Icons.adaptive.share),
-              ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.bottomRight,
+            colors: [
+              paletteGenerator?.dominantColor?.color ?? Colors.transparent,
+              paletteGenerator?.darkMutedColor?.color ?? Colors.black,
             ],
+            radius: 2,
           ),
-          SliverSafeArea(
-            top: false,
-            minimum: const EdgeInsets.all(16.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                songs.map(_SongRow.fromSong).toList(),
+        ),
+        child: CustomScrollView(
+          primary: true,
+          slivers: [
+            SliverAppBar.large(
+              stretch: true,
+              backgroundColor: paletteGenerator?.dominantColor?.color,
+              flexibleSpace: _AlbumPageTitle(
+                album: album!,
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    final dynamiclink = await DynamicLinkService.instance
+                        .getDynamicLinkFromLocation(
+                      GoRouterState.of(context).location,
+                    );
+                    await Clipboard.setData(
+                      ClipboardData(text: dynamiclink),
+                    );
+                  },
+                  icon: Icon(Icons.adaptive.share),
+                ),
+              ],
+            ),
+            SliverSafeArea(
+              top: false,
+              minimum: const EdgeInsets.all(16.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  ListTile.divideTiles(
+                    context: context,
+                    tiles: songs.map(_SongRow.fromSong),
+                  ).toList(),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -108,7 +147,9 @@ class _SongRow extends StatelessWidget {
 class _AlbumPageTitle extends StatelessWidget {
   final Album album;
 
-  const _AlbumPageTitle(this.album);
+  const _AlbumPageTitle({
+    required this.album,
+  });
 
   @override
   Widget build(BuildContext context) => FlexibleSpaceBar(

@@ -17,7 +17,9 @@ class ProfilePage extends StatelessWidget {
         children: [
           _FireBaseInstallationId(),
           if (RemoteConfigService.instance.hasEditorSuperPowers) ...[
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             ListTile(
               leading: const Icon(Icons.star_rounded),
               title: const Text('Editor Menu'),

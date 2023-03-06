@@ -24,6 +24,7 @@ dependencies:
   collection: ^1.17.0
   firebase_app_installations: ^0.2.1+12
   logging: ^1.1.1
+  palette_generator: ^0.3.3+2
 
 dev_dependencies:
   flutter_test:

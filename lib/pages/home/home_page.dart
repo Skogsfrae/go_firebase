@@ -11,120 +11,132 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Text(
-                  'Welcome ${FirebaseAuth.instance.currentUser!.displayName}'),
-              centerTitle: false,
-              actions: [
-                GestureDetector(
-                  child: const UserAvatar(
-                    size: 40,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.bottomRight,
+            colors: [
+              Colors.indigo,
+              Colors.transparent,
+            ],
+            radius: 2,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text(
+                    'Welcome ${FirebaseAuth.instance.currentUser!.displayName}'),
+                centerTitle: false,
+                actions: [
+                  GestureDetector(
+                    child: const UserAvatar(
+                      size: 40,
+                    ),
+                    onTap: () => ProfilePageData().go(context),
                   ),
-                  onTap: () => ProfilePageData().go(context),
-                ),
-              ],
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 16,
+                ],
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'Most listened albums ever',
-                  style: Theme.of(context).textTheme.titleMedium,
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 16,
                 ),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 8,
-              ),
-            ),
-            SliverGrid.count(
-              childAspectRatio: 3 / 4,
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: AlbumRepository.mostListenedAlbums()
-                  .map(AlbumCard.fromAlbum)
-                  .toList(),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 24,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'Gorillaz Albums',
-                  style: Theme.of(context).textTheme.titleMedium,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Most listened albums ever',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 8,
-              ),
-            ),
-            SliverGrid.count(
-              childAspectRatio: 3 / 4,
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: AlbumRepository.gorillazAlbums()
-                  .map(AlbumCard.fromAlbum)
-                  .toList(),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 24,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'Other Albums',
-                  style: Theme.of(context).textTheme.titleMedium,
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 8,
                 ),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 8,
+              SliverGrid.count(
+                childAspectRatio: 3 / 4,
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                children: AlbumRepository.mostListenedAlbums()
+                    .map(AlbumCard.fromAlbum)
+                    .toList(),
               ),
-            ),
-            SliverGrid.count(
-              childAspectRatio: 3 / 4,
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: AlbumRepository.croAlbums()
-                  .map(AlbumCard.fromAlbum)
-                  .toList(),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 24,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom,
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 24,
                 ),
               ),
-            ),
-          ],
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Gorillaz Albums',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 8,
+                ),
+              ),
+              SliverGrid.count(
+                childAspectRatio: 3 / 4,
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                children: AlbumRepository.gorillazAlbums()
+                    .map(AlbumCard.fromAlbum)
+                    .toList(),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 24,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Other Albums',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 8,
+                ),
+              ),
+              SliverGrid.count(
+                childAspectRatio: 3 / 4,
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                children: AlbumRepository.croAlbums()
+                    .map(AlbumCard.fromAlbum)
+                    .toList(),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 24,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
