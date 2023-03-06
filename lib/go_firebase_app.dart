@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:go_firebase/components/push_notification_handler.dart';
 import 'package:go_firebase/routing/router.dart';
-
 
 class GoFirebaseApp extends StatefulWidget {
   const GoFirebaseApp({super.key});
@@ -22,6 +21,17 @@ class _GoFirebaseAppState extends State<GoFirebaseApp> {
       theme: ThemeData(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
       routerConfig: router,
+      builder: (BuildContext context, Widget? child) {
+        if (child == null) return const SizedBox.shrink();
+
+        return Overlay(
+          initialEntries: [
+            OverlayEntry(builder: (BuildContext context) {
+              return PushNotificationHandler(child: child);
+            })
+          ],
+        );
+      },
     );
   }
 }

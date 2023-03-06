@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SliverGrid.count(
-                childAspectRatio: 3 / 4,
+                childAspectRatio: 2 / 3,
                 crossAxisCount: 2,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
