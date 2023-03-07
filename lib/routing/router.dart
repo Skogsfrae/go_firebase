@@ -1,5 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:go_firebase/pages/home/not_found_page.dart';
 import 'package:go_firebase/routing/routes.dart';
 import 'package:go_firebase/services/auth/auth_service.dart';
 import 'package:go_firebase/services/dynamic_link_service.dart';
@@ -23,6 +24,7 @@ class GoFirebaseRouter {
 
     router = GoRouter(
       initialLocation: initialRoute?.toString() ?? '/home',
+      errorBuilder: (context, state) => const NotFountPage(entity: ''),
       refreshListenable: Listenable.merge([
         AuthService.instance,
       ]),
