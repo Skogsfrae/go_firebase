@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class AuthService extends ChangeNotifier {
   AuthService._() {
     notifyListeners();
-    _streamSubscription = FirebaseAuth.instance.userChanges().listen(
+    _streamSubscription = FirebaseAuth.instance.authStateChanges().listen(
           (event) => notifyListeners(),
         );
   }
