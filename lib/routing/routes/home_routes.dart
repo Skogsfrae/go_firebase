@@ -5,6 +5,7 @@ import 'package:go_firebase/pages/home/album_page.dart';
 import 'package:go_firebase/pages/home/home_page.dart';
 import 'package:go_firebase/pages/home/not_found_page.dart';
 import 'package:go_firebase/repo/data_repository.dart';
+import 'package:go_firebase/services/dynamic_link_service.dart';
 import 'package:go_firebase/services/remote_config_service.dart';
 import 'package:go_router/go_router.dart';
 
@@ -58,9 +59,14 @@ class AlbumPageData extends GoRouteData {
   }
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return AlbumPage(
-      albumId: id,
+  Page buildPage(BuildContext context, GoRouterState state) {
+    final uri = Uri.parse(state.location);
+
+    return MaterialPage(
+      fullscreenDialog: uri.scheme == DynamicLinkService.dynamicLinkScheme,
+      child: AlbumPage(
+        albumId: id,
+      ),
     );
   }
 }

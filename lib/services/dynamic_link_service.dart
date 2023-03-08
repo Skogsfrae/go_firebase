@@ -4,6 +4,7 @@ import 'package:go_firebase/routing/router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DynamicLinkService {
+  static String dynamicLinkScheme = 'dynamiclink';
   static DynamicLinkService? _instance;
   static DynamicLinkService get instance =>
       _instance ??= DynamicLinkService._();
@@ -22,7 +23,7 @@ class DynamicLinkService {
 
     if (initialLink != null) {
       initialRoute = Uri(
-        scheme: 'dynamicLink',
+        scheme: dynamicLinkScheme,
         path: initialLink.link.path,
         query: initialLink.link.query,
       );
@@ -32,7 +33,7 @@ class DynamicLinkService {
 
     FirebaseDynamicLinks.instance.onLink.listen((event) {
       final route = Uri(
-        scheme: 'dynamicLink',
+        scheme: dynamicLinkScheme,
         path: event.link.path,
         queryParameters: event.link.queryParametersAll,
       );

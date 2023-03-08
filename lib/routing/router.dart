@@ -32,14 +32,18 @@ class GoFirebaseRouter {
       routes: appRoutes,
       redirect: (BuildContext context, GoRouterState state) {
         final authService = AuthService.instance;
-        final bool authFlow = state.location.contains('/auth');
+        final bool authFlow = state.subloc.contains('/auth');
 
-        // bind the location the user is coming from to a query parameter
-        final fromp = state.subloc;
+        if (!authService.loggedIn && !authFlow) {
+          // bind the location the user is coming from to a query parameter
+          final fromp = state.location;
 
-        if (!authService.loggedIn) {
           return AuthPageData(from: fromp).location;
         } else if (authService.loggedIn && authFlow) {
+          if (state.queryParams['from'] != null) {
+            return state.queryParams['from'];
+          }
+
           return HomeRouteData().location;
         }
 
