@@ -107,12 +107,16 @@ class _NavigationOverlaySwitchState extends State<_NavigationOverlaySwitch> {
                     ),
                     trailing: const Icon(Icons.copy),
                     onTap: () async {
+                      final currentRoute = GoRouter.of(context).location;
                       final dynamicLink = await DynamicLinkService.instance
                           .getDynamicLinkFromLocation(
-                        GoRouter.of(context).location,
+                        currentRoute,
                       );
                       await Clipboard.setData(
-                        ClipboardData(text: dynamicLink),
+                        ClipboardData(
+                          text: 'Current route: $currentRoute\n'
+                              'Dynamic Link: $dynamicLink',
+                        ),
                       );
                     },
                   ),
@@ -125,6 +129,7 @@ class _NavigationOverlaySwitchState extends State<_NavigationOverlaySwitch> {
       Overlay.of(context).insert(_currentOverlayEntry!);
     } else {
       _currentOverlayEntry?.remove();
+      _currentOverlayEntry = null;
     }
   }
 
