@@ -27,10 +27,9 @@ class RemoteConfigService {
       },
     );
 
-    // as described in loading strategy n.3
-    // https://firebase.google.com/docs/remote-config/loading?hl=en#strategy_3_load_new_values_for_next_startup
-    await remoteConfig.activate();
-    await remoteConfig.fetch();
+    // as described in loading strategy n.1
+    // https://firebase.google.com/docs/remote-config/loading?hl=en#strategy_1_fetch_and_activate_on_load
+    await remoteConfig.fetchAndActivate();
 
     _logger.info('Initialized');
     _logger.info('Last fetch time: ${remoteConfig.lastFetchTime}');
