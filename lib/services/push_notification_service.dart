@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:go_firebase/services/auth/auth_service.dart';
+import 'package:logging/logging.dart';
 
 typedef NotificationCallback = void Function(
   RemoteMessage message, {
@@ -19,11 +19,13 @@ class PushNotificationService {
 
   List<StreamSubscription>? _subscriptions;
 
+  final _logger = Logger('PushNotificationService');
+
   NotificationCallback? _notificationCallback;
   NotificationCallback? get notificationCallback => _notificationCallback;
   set notificationCallback(NotificationCallback? callback) {
     _notificationCallback = callback;
-    debugPrint('Setting up notification handler.');
+    _logger.info('Setting up notification handler.');
   }
 
   PushNotificationService._() {
@@ -56,7 +58,7 @@ class PushNotificationService {
     } else {
       _firebaseMessagingToken = null;
     }
-    debugPrint("FIREBASE MESSAGING TOKEN : $_firebaseMessagingToken");
+    _logger.info("FIREBASE MESSAGING TOKEN : $_firebaseMessagingToken");
 
     return token;
   }
@@ -68,7 +70,6 @@ class PushNotificationService {
 
   void _onTokenRefresh(String? token) {
     _firebaseMessagingToken = token;
-    debugPrint("REFRESH FIREBASE MESSAGING TOKEN : $_firebaseMessagingToken");
+    _logger.info("REFRESH FIREBASE MESSAGING TOKEN : $_firebaseMessagingToken");
   }
-
 }
