@@ -31,12 +31,12 @@ class DynamicLinkService {
       initialRoute = null;
     }
 
-    FirebaseDynamicLinks.instance.onLink.listen(_onLinkListener);
+    FirebaseDynamicLinks.instance.onLink.listen(_onLinkCallback);
 
     _completer.complete(true);
   }
 
-  void _onLinkListener(PendingDynamicLinkData data) {
+  void _onLinkCallback(PendingDynamicLinkData data) {
     final route = Uri(
       scheme: dynamicLinkScheme,
       path: data.link.path,
