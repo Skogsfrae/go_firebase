@@ -31,17 +31,19 @@ class DynamicLinkService {
       initialRoute = null;
     }
 
-    FirebaseDynamicLinks.instance.onLink.listen((event) {
-      final route = Uri(
-        scheme: dynamicLinkScheme,
-        path: event.link.path,
-        queryParameters: event.link.queryParametersAll,
-      );
-
-      GoFirebaseRouter.instance.router.go(route.toString());
-    });
+    FirebaseDynamicLinks.instance.onLink.listen(_onLinkListener);
 
     _completer.complete(true);
+  }
+
+  void _onLinkListener(PendingDynamicLinkData data) {
+    final route = Uri(
+      scheme: dynamicLinkScheme,
+      path: data.link.path,
+      queryParameters: data.link.queryParametersAll,
+    );
+
+    GoFirebaseRouter.instance.router.go(route.toString());
   }
 
   Future<String> getDynamicLinkFromLocation(String location) async {
