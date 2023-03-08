@@ -73,6 +73,7 @@ class _AlbumPageState extends State<AlbumPage> {
                     await Clipboard.setData(
                       ClipboardData(text: dynamiclink),
                     );
+                    _showSnackBar();
                   },
                   icon: Icon(Icons.adaptive.share),
                 ),
@@ -94,6 +95,14 @@ class _AlbumPageState extends State<AlbumPage> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar() {
+    const snackBar = SnackBar(
+      content: Text('🔗 DynamicLink saved on clipboard'),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 

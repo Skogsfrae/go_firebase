@@ -4,12 +4,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_firebase/services/auth/auth_service.dart';
 
-const pushNotificationScheme = 'pushnotification';
-
-typedef NotificationCallback = void Function(RemoteMessage message, bool isForeground);
+typedef NotificationCallback = void Function(
+  RemoteMessage message, {
+  required bool isForeground,
+});
 
 class PushNotificationService {
-
   static PushNotificationService? _instance;
   static PushNotificationService get instance =>
       _instance ??= PushNotificationService._();
@@ -35,10 +35,10 @@ class PushNotificationService {
     _subscriptions = [
       FirebaseMessaging.instance.onTokenRefresh.listen(_onTokenRefresh),
       FirebaseMessaging.onMessage.listen(
-        (message) => notificationCallback?.call(message, true),
+        (message) => notificationCallback?.call(message, isForeground: true),
       ),
       FirebaseMessaging.onMessageOpenedApp.listen(
-        (message) => notificationCallback?.call(message, false),
+        (message) => notificationCallback?.call(message, isForeground: false),
       ),
     ];
     setupToken();
@@ -66,7 +66,7 @@ class PushNotificationService {
     return settings.authorizationStatus == AuthorizationStatus.authorized;
   }
 
-  void _onTokenRefresh (String? token) {
+  void _onTokenRefresh(String? token) {
     _firebaseMessagingToken = token;
     debugPrint("REFRESH FIREBASE MESSAGING TOKEN : $_firebaseMessagingToken");
   }
