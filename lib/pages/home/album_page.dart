@@ -102,8 +102,19 @@ class _AlbumPageState extends State<AlbumPage> {
   }
 
   void _showSnackBar() {
+
     const snackBar = SnackBar(
-      content: Text('🔗 DynamicLink saved on clipboard'),
+      content: Text(
+      '🔗 DynamicLink copied to clipboard',
+    ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+      ),
+      elevation: 20,
+      margin: EdgeInsets.all(16),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
