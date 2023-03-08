@@ -24,14 +24,17 @@ class _AlbumPageState extends State<AlbumPage> {
 
   List<Song> get songs => album?.songs ?? const [];
   PaletteGenerator? paletteGenerator;
+  late final CachedNetworkImageProvider _imageProvider;
 
   @override
   void initState() {
     super.initState();
+    _imageProvider = CachedNetworkImageProvider(
+      album!.albumArt,
+    );
+
     PaletteGenerator.fromImageProvider(
-      CachedNetworkImageProvider(
-        album!.albumArt,
-      ),
+      _imageProvider,
     ).then((value) {
       setState(() {
         paletteGenerator = value;
@@ -62,6 +65,7 @@ class _AlbumPageState extends State<AlbumPage> {
               backgroundColor: paletteGenerator?.dominantColor?.color,
               flexibleSpace: _AlbumPageTitle(
                 album: album!,
+                imageProvider: _imageProvider,
               ),
               actions: [
                 IconButton(
@@ -132,34 +136,40 @@ class _SongRow extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ListTile(
-        dense: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        leading: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(position.toString()),
-          ],
-        ),
-        title: Text(
-          title,
-          overflow: TextOverflow.ellipsis,
-        ),
-        subtitle: Text(author, style: Theme.of(context).textTheme.bodySmall),
-        trailing: Text(
-          duration.toString().substring(2, 7),
-          style: Theme.of(context).textTheme.labelSmall,
-        ),
-      );
+  Widget build(BuildContext context) {
+    if (position == 10) throw Exception("You'll never fix me 😈");
+
+    return ListTile(
+      dense: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      leading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(position.toString()),
+        ],
+      ),
+      title: Text(
+        title,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: Text(author, style: Theme.of(context).textTheme.bodySmall),
+      trailing: Text(
+        duration.toString().substring(2, 7),
+        style: Theme.of(context).textTheme.labelSmall,
+      ),
+    );
+  }
 }
 
 class _AlbumPageTitle extends StatelessWidget {
   final Album album;
+  final ImageProvider imageProvider;
 
   const _AlbumPageTitle({
     required this.album,
+    required this.imageProvider,
   });
 
   @override
@@ -192,9 +202,7 @@ class _AlbumPageTitle extends StatelessWidget {
             ),
           ),
           child: Image(
-            image: CachedNetworkImageProvider(
-              album.albumArt,
-            ),
+            image: imageProvider,
             fit: BoxFit.cover,
           ),
         ),
