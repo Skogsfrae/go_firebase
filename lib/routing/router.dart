@@ -24,7 +24,7 @@ class GoFirebaseRouter {
 
     router = GoRouter(
       initialLocation: initialRoute?.toString() ?? '/home',
-      errorBuilder: (context, state) => const NotFountPage(entity: ''),
+      errorBuilder: (context, state) => const NotFountPage(entity: 'page'),
       refreshListenable: Listenable.merge([
         AuthService.instance,
       ]),
