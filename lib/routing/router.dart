@@ -19,8 +19,8 @@ class GoFirebaseRouter {
     final initialRoute = DynamicLinkService.instance.initialRoute;
 
     router = GoRouter(
-      initialLocation: initialRoute?.toString() ?? '/home',
-      errorBuilder: (context, state) => const NotFountPage(entity: 'page'),
+      initialLocation: initialRoute?.toString() ?? HomeRouteData().location,
+      errorBuilder: (context, state) => const NotFountPage(entity: 'Page'),
       refreshListenable: Listenable.merge([
         AuthService.instance,
       ]),

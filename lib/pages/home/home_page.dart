@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
             slivers: [
               SliverAppBar(
                 title: Text(
-                    'Welcome ${FirebaseAuth.instance.currentUser!.displayName}'),
+                    'Welcome ${FirebaseAuth.instance.currentUser?.displayName ?? ''}'),
                 centerTitle: false,
                 actions: [
                   GestureDetector(
