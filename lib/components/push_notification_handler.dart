@@ -28,23 +28,28 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
     return widget.child;
   }
 
-  void _handlePushNotification(RemoteMessage message, {required bool isForeground}) {
-    final String? action = message.data["action"];
+  void _handlePushNotification(RemoteMessage message,
+      {required bool isForeground}) {
     if (isForeground) {
       _showForegroundNotifcation(message);
     } else {
-      switch (action) {
-        case "navigation":
-          if (message.data['route'] != null) {
-            final route = Uri.parse(message.data['route']).replace(
-              scheme: pushNotificationScheme,
-            );
-            GoFirebaseRouter.instance.router.go(route.toString());
-          }
-          break;
-        default:
-          return;
-      }
+      _navigatePushNotification(message);
+    }
+  }
+
+  _navigatePushNotification(RemoteMessage message) {
+    final String? action = message.data["action"];
+    switch (action) {
+      case "navigation":
+        if (message.data['route'] != null) {
+          final route = Uri.parse(message.data['route']).replace(
+            scheme: pushNotificationScheme,
+          );
+          GoFirebaseRouter.instance.router.go(route.toString());
+        }
+        break;
+      default:
+        return;
     }
   }
 
@@ -61,7 +66,7 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
           elevation: 20,
           child: ListTile(
             onTap: () {
-              _handlePushNotification(message, isForeground: false);
+              _navigatePushNotification(message);
             },
             title: Text(
               message.notification?.title ?? "",
