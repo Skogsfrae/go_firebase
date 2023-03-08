@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_firebase/routing/router.dart';
 import 'package:go_firebase/services/push_notification_service.dart';
 
+const pushNotificationScheme = 'pushnotification';
+
 class PushNotificationHandler extends StatefulWidget {
   final Widget child;
 
@@ -26,11 +28,10 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
     return widget.child;
   }
 
-  void _handlePushNotification(RemoteMessage message, bool isForeground) {
-    debugPrint(message.data.toString());
+  void _handlePushNotification(RemoteMessage message, {required bool isForeground}) {
     final String? action = message.data["action"];
     if (isForeground) {
-      _showCustomNotifcation(message);
+      _showForegroundNotifcation(message);
     } else {
       switch (action) {
         case "navigation":
@@ -38,7 +39,6 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
             final route = Uri.parse(message.data['route']).replace(
               scheme: pushNotificationScheme,
             );
-
             GoFirebaseRouter.instance.router.go(route.toString());
           }
           break;
@@ -48,7 +48,7 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
     }
   }
 
-  void _showCustomNotifcation(RemoteMessage message) async {
+  void _showForegroundNotifcation(RemoteMessage message) async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
@@ -61,7 +61,7 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
           elevation: 20,
           child: ListTile(
             onTap: () {
-              _handlePushNotification(message, false);
+              _handlePushNotification(message, isForeground: false);
             },
             title: Text(
               message.notification?.title ?? "",
@@ -70,11 +70,11 @@ class _PushNotificationHandlerState extends State<PushNotificationHandler> {
               ),
             ),
             subtitle: Text(
-                    message.notification?.body ?? "",
-                    style: const TextStyle(
-                      fontSize: 10,
-                    ),
-                  ),
+              message.notification?.body ?? "",
+              style: const TextStyle(
+                fontSize: 10,
+              ),
+            ),
           ),
         ),
       ),
