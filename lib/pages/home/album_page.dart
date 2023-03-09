@@ -148,8 +148,6 @@ class _SongRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (position == 10) throw Exception("You'll never fix me 😈");
-
     return ListTile(
       dense: true,
       shape: RoundedRectangleBorder(

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_firebase/components/push_notification_handler.dart';
 import 'package:go_firebase/pages/auth/editor_page.dart';
 import 'package:go_firebase/pages/auth/profile_page.dart';
 import 'package:go_firebase/pages/home/album_page.dart';
@@ -62,8 +64,19 @@ class AlbumPageData extends GoRouteData {
   Page buildPage(BuildContext context, GoRouterState state) {
     final uri = Uri.parse(state.location);
 
+    if ([
+      DynamicLinkService.dynamicLinkScheme,
+      pushNotificationScheme,
+    ].contains(uri.scheme)) {
+      return CupertinoPage(
+        fullscreenDialog: true,
+        child: AlbumPage(
+          albumId: id,
+        ),
+      );
+    }
+
     return MaterialPage(
-      fullscreenDialog: uri.scheme == DynamicLinkService.dynamicLinkScheme,
       child: AlbumPage(
         albumId: id,
       ),
